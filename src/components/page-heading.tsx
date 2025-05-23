@@ -1,13 +1,24 @@
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 
-export default function PageHeading({ title, description, backLink }: { title: string, description: string, backLink: string }) {
+type Tab = "scan" | "items" | "split" | "summary"
+
+const TAB_MAP: Record<Tab, Tab> = {
+    "scan": "scan",
+    "items": "scan",
+    "split": "items",
+    "summary": "split",
+}
+
+export default function PageHeading({ title, description, navTab, handleBack }: { title: string, description: string, navTab: Tab, handleBack: (tab: Tab, newTab: Tab) => void }) {
     return (
         <div className="flex flex-col items-start gap-3 font-sans">
-            <Link href={backLink} className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+            <span 
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                onClick={() => handleBack(navTab, TAB_MAP[navTab])}
+            >
                 <ArrowLeft size={16} />
                 Back
-            </Link>
+            </span>
 
             <h1 className="text-2xl font-medium text-foreground">
                 {title}

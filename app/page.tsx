@@ -1,8 +1,13 @@
 import { SquaresExclude, Camera } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Share Bills, Keep Friends",
+    description: "Split bills effortlessly with friends. Just snap, tap, and share - it's that simple. No accounts needed.",
+}
 
 export default function Home() {
     return (
@@ -22,10 +27,6 @@ export default function Home() {
                     <Camera size={16} />
                     Scan Invoice
                 </Link>
-
-                <Button variant="outline" className="w-full mt-4">
-                    Manually
-                </Button>
             </section>
         </main>
     );

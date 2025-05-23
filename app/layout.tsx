@@ -1,4 +1,5 @@
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Toaster } from "@/components/ui/sonner";
 import { SquaresExclude } from 'lucide-react';
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
@@ -44,6 +45,8 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
 
                     {children}
                 </ThemeProvider>
+
+                <Toaster />
             </body>
         </html>
     );

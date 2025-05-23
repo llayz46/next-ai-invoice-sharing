@@ -88,6 +88,23 @@
     --color-studio-800: oklch(0.48 0.122 288.95);
     --color-studio-900: oklch(0.38 0.092 288.95);
     --color-studio-950: oklch(0.28 0.062 288.95);
+
+    --animate-top-to-bottom: top-to-bottom 3s ease-in-out infinite;
+
+    @keyframes top-to-bottom {
+        0% {
+            top: 0;
+            transform: translateY(-100%);
+        }
+        50% {
+            top: 100%;
+            transform: translateY(0);
+        }
+        100% {
+            top: 0;
+            transform: translateY(-100%);
+        }
+    }
 }
 
 body {
