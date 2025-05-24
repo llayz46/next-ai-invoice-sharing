@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
     return (
         <main className="flex-1 flex items-center justify-center">
-            <section className="max-w-xs flex items-center flex-col">
+            <section className="max-w-xs md:max-w-sm flex items-center flex-col">
                 <SquaresExclude className="size-16" color="var(--color-studio-600)" />
 
                 <h1 className="text-center text-balance text-primary font-mono text-3xl font-medium mt-12 mb-3">

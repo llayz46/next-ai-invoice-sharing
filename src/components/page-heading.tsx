@@ -1,3 +1,4 @@
+import { useInvoiceActions } from "@/hooks/use-invoice-actions";
 import { ArrowLeft } from "lucide-react";
 
 type Tab = "scan" | "items" | "split" | "summary"
@@ -9,7 +10,9 @@ const TAB_MAP: Record<Tab, Tab> = {
     "summary": "split",
 }
 
-export default function PageHeading({ title, description, navTab, handleBack }: { title: string, description: string, navTab: Tab, handleBack: (tab: Tab, newTab: Tab) => void }) {
+export default function PageHeading({ title, description, navTab }: { title: string, description: string, navTab: Tab }) {
+    const { handleBack } = useInvoiceActions();
+    
     return (
         <div className="flex flex-col items-start gap-3 font-sans">
             <span 

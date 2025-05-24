@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { InvoiceProvider } from "../src/context/InvoiceContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -35,15 +36,17 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <header className="flex items-center justify-between py-4 px-5 border-b">
-                        <Link href="/">
-                            <SquaresExclude className="size-5" color="var(--color-studio-600)" />
-                        </Link>
+                    <InvoiceProvider>
+                        <header className="flex items-center justify-between py-4 px-5 border-b">
+                            <Link href="/">
+                                <SquaresExclude className="size-5" color="var(--color-studio-600)" />
+                            </Link>
 
-                        <ThemeToggle />
-                    </header>
+                            <ThemeToggle />
+                        </header>
 
-                    {children}
+                        {children}
+                    </InvoiceProvider>
                 </ThemeProvider>
 
                 <Toaster />
