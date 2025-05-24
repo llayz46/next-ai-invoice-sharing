@@ -198,6 +198,8 @@ export default function Scan() {
     const handleBack = (tab: Tab, newTab: Tab) => {
         if (tab === "items") {
             setExtractedData(null);
+            setPeople([]);
+            setSplitEqually(false);
             setNavTab(newTab);
         } else if (tab === "scan") {
             router.push("/");
