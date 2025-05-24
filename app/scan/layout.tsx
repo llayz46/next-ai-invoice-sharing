@@ -6,5 +6,13 @@ export const metadata: Metadata = {
 }
 
 export default function ScanLayout({ children }: { children: React.ReactNode }) {
-    return children
+    return (
+        <>
+            {children}
+            
+            <footer className="mt-10 mb-5 text-center text-sm text-muted-foreground">
+                Powered by Gemini AI
+            </footer>
+        </>
+    )
 }

@@ -23,7 +23,7 @@ export default function Home() {
                     Split bills effortlessly with friends. Just snap, tap, and share - it&apos;s that simple. No accounts needed.
                 </p>
 
-                <Link href="/scan" className={cn(buttonVariants({ variant: "default" }), "bg-studio-700 w-full mt-16 py-5")}>
+                <Link href="/scan" className={cn(buttonVariants({ variant: "studio" }), "w-full mt-16 py-5")}>
                     <Camera size={16} />
                     Scan Invoice
                 </Link>

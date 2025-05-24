@@ -64,10 +64,10 @@ export default function Scan() {
     };
 
     const handleSplitBill = () => {
-        if (!extractedData?.items.some((item) => !item.name || item.price === 0)) {
+        if (!extractedData?.items.some((item) => !item.name)) {
             setNavTab("split");
         } else {
-            toast.error("All items must have a name and price greater than 0");
+            toast.error("All items must have a name");
             return;
         }
     };
@@ -232,7 +232,7 @@ export default function Scan() {
     };
 
     return (
-        <main className="flex flex-col max-w-xs md:max-w-sm mx-auto mt-20">
+        <main className="flex flex-col h-full max-w-xs md:max-w-sm mx-auto mt-20">
             {!extractedData && navTab === "scan" && (
                 <>
                     <PageHeading
@@ -249,8 +249,8 @@ export default function Scan() {
                     <Button
                         disabled={!selectedImageFile}
                         onClick={handleProcessImage}
-                        variant="default"
-                        className="font-sans bg-studio-700 w-full mt-16 py-5"
+                        variant="studio"
+                        className="font-sans cursor-pointer w-full mt-16 py-5"
                     >
                         Scan Invoice
                     </Button>
@@ -356,8 +356,8 @@ export default function Scan() {
                     <Button
                         disabled={!extractedData}
                         onClick={handleSplitBill}
-                        variant="default"
-                        className="font-sans bg-studio-700 w-full mt-16 py-5"
+                        variant="studio"
+                        className="font-sans w-full mt-16 py-5"
                     >
                         Validate Items
                     </Button>
@@ -477,8 +477,8 @@ export default function Scan() {
                     <Button
                         disabled={!extractedData}
                         onClick={handleBillSummary}
-                        variant="default"
-                        className="font-sans bg-studio-700 w-full mt-16 py-5"
+                        variant="studio"
+                        className="font-sans w-full mt-16 py-5"
                     >
                         Split Bill
                     </Button>
@@ -510,7 +510,7 @@ export default function Scan() {
                         ))}
                     </div>
 
-                    <Button onClick={handleShare} className="bg-studio-700 w-full mt-12 py-5">
+                    <Button onClick={handleShare} variant="studio" className="w-full mt-12 py-5">
                         <Share size={16} />
                         Share
                     </Button>
