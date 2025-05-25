@@ -1,15 +1,13 @@
-import { SquaresExclude, Camera } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button"
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { SquaresExclude } from "lucide-react";
 import { Metadata } from "next";
+import { ButtonScan } from "@/components/button-scan";
 
 export const metadata: Metadata = {
     title: "Share Bills, Keep Friends",
     description: "Split bills effortlessly with friends. Just snap, tap, and share - it's that simple. No accounts needed.",
 }
 
-export default function Home() {
+export default function Home() {    
     return (
         <main className="flex-1 flex items-center justify-center">
             <section className="max-w-xs md:max-w-sm flex items-center flex-col">
@@ -23,10 +21,7 @@ export default function Home() {
                     Split bills effortlessly with friends. Just snap, tap, and share - it&apos;s that simple. No accounts needed.
                 </p>
 
-                <Link href="/scan" className={cn(buttonVariants({ variant: "studio" }), "w-full mt-16 py-5")}>
-                    <Camera size={16} />
-                    Scan Invoice
-                </Link>
+                <ButtonScan />
             </section>
         </main>
     );

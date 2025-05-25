@@ -1,15 +1,14 @@
 'use client'
 
-import { cn } from "@/lib/utils";
-import { Trash, Plus } from "lucide-react";
-import PageHeading from "./page-heading";
-import { Button } from "./ui/button";
-import { Person } from "@/lib/types";
-import { Badge } from "./ui/badge";
-import { Input } from "./ui/input";
-import { toast } from "sonner";
 import { useInvoice } from "@/context/InvoiceContext";
-import { Item } from "@/lib/types";
+import { Item, Person } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { Plus, Trash } from "lucide-react";
+import { toast } from "sonner";
+import PageHeading from "./page-heading";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 export default function TabSplit() {
     const {
@@ -98,52 +97,50 @@ export default function TabSplit() {
         }
     };
 
-    // TODO: fix type
     const handleAssignItemToPerson = (
         item: { id: number; name: string; price: number },
         person: { id: number; name: string; items: Item[] | Item }
     ) => {
-        setPeople((prevPeople: Person[]) => {
-            const currentAssignments = prevPeople.reduce((count: number, p: Person) => {
-                const currentItems = Array.isArray(p.items) ? p.items : [p.items];
-                return count + (currentItems.some((i) => i.id === item.id) ? 1 : 0);
-            }, 0);
+        const currentAssignments = people.reduce((count: number, p: Person) => {
+            const currentItems = Array.isArray(p.items) ? p.items : [p.items];
+            return count + (currentItems.some((i) => i.id === item.id) ? 1 : 0);
+        }, 0);
 
-            const currentItems = Array.isArray(person.items) ? person.items : [person.items];
-            const alreadyAssigned = currentItems.some((i) => i.id === item.id);
-            const newAssignmentCount = alreadyAssigned ? currentAssignments - 1 : currentAssignments + 1;
+        const currentItems = Array.isArray(person.items) ? person.items : [person.items];
+        const alreadyAssigned = currentItems.some((i) => i.id === item.id);
+        const newAssignmentCount = alreadyAssigned ? currentAssignments - 1 : currentAssignments + 1;
+        const pricePerPerson = newAssignmentCount > 0 ? item.price / newAssignmentCount : 0;
 
-            const pricePerPerson = newAssignmentCount > 0 ? item.price / newAssignmentCount : 0;
-
-            return prevPeople.map((p) => {
-                if (p.id === person.id) {
-                    if (!alreadyAssigned) {
-                        return {
-                            ...p,
-                            items: [...currentItems, { ...item, price: pricePerPerson }],
-                        };
-                    } else {
-                        return {
-                            ...p,
-                            items: currentItems.filter((i) => i.id !== item.id),
-                        };
-                    }
+        const updatedPeople = people.map((p) => {
+            if (p.id === person.id) {
+                if (!alreadyAssigned) {
+                    return {
+                        ...p,
+                        items: [...currentItems, { ...item, price: pricePerPerson }],
+                    };
                 } else {
-                    const pItems = Array.isArray(p.items) ? p.items : [p.items];
-                    const hasItem = pItems.some((i) => i.id === item.id);
-                    
-                    if (hasItem) {
-                        return {
-                            ...p,
-                            items: pItems.map((i) => 
-                                i.id === item.id ? { ...i, price: pricePerPerson } : i
-                            ),
-                        };
-                    }
+                    return {
+                        ...p,
+                        items: currentItems.filter((i) => i.id !== item.id),
+                    };
                 }
-                return p;
-            });
+            } else {
+                const pItems = Array.isArray(p.items) ? p.items : [p.items];
+                const hasItem = pItems.some((i) => i.id === item.id);
+                
+                if (hasItem) {
+                    return {
+                        ...p,
+                        items: pItems.map((i) => 
+                            i.id === item.id ? { ...i, price: pricePerPerson } : i
+                        ),
+                    };
+                }
+            }
+            return p;
         });
+
+        setPeople(updatedPeople);
     };
 
     return navTab === "split" && (
