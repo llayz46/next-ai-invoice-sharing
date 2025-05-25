@@ -1,12 +1,11 @@
 'use client'
 
-import { ExtractedData } from "@/lib/types";
+import { useInvoice } from "@/context/InvoiceContext";
 import { Plus, Trash } from "lucide-react";
 import { toast } from "sonner";
 import PageHeading from "./page-heading";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { useInvoice } from "@/context/InvoiceContext";
 
 export default function TabItems() {
     const {
@@ -38,7 +37,7 @@ export default function TabItems() {
             <div className="mt-8 flex flex-col gap-4">
                 <div className="flex justify-start items-center gap-2">
                     <h2 className="text-lg font-medium">{extractedData.restaurantName} :</h2>
-                    <p className="text-sm text-gray-500">Total: ${extractedData.totalAmount}</p>
+                    <p className="text-sm text-gray-500">Total: ${extractedData.totalAmount.toFixed(2)}</p>
                 </div>
 
                 {extractedData.items.map((item, i) => (
@@ -67,16 +66,13 @@ export default function TabItems() {
                             onChange={(e) => {
                                 const price = parseFloat(e.target.value);
                                 if (!isNaN(price) && extractedData) {
-                                    setExtractedData((prevState: ExtractedData) => {
-                                        if (!prevState) return null;
-                                        const updatedItems = prevState.items.map((item: { id: number; name: string; price: number }, index: number) =>
-                                            index === i ? { ...item, price } : item
-                                        );
-                                        return {
-                                            ...prevState,
-                                            items: updatedItems,
-                                            totalAmount: updatedItems.reduce((sum: number, item: { price: number }) => sum + item.price, 0),
-                                        };
+                                    const updatedItems = extractedData.items.map((item, index) =>
+                                        index === i ? { ...item, price } : item
+                                    );
+                                    setExtractedData({
+                                        ...extractedData,
+                                        items: updatedItems,
+                                        totalAmount: updatedItems.reduce((sum, item) => sum + item.price, 0),
                                     });
                                 }
                             }}

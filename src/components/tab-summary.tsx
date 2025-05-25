@@ -57,9 +57,9 @@ export default function TabSummary() {
                     >
                         <p>{person.name}</p>
                         {Array.isArray(person.items) ? (
-                            <p>${person.items.reduce((sum, item) => sum + item.price, 0)}</p>
+                            <p>${person.items.reduce((sum, item) => sum + item.price, 0).toFixed(2)}</p>
                         ) : (
-                            <p>${person.items.price}</p>
+                            <p>${person.items.price.toFixed(2)}</p>
                         )}
                     </div>
                 ))}

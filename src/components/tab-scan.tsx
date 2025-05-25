@@ -60,7 +60,7 @@ export default function TabScan() {
                 description="Take a photo or upload an image of your receipt."
                 navTab="scan"
             />
-            {navTab}
+
             <Card className="!p-4 mt-8">
                 <FormImageUpload onImageUploaded={setSelectedImageFile} isLoading={isLoading} />
             </Card>
