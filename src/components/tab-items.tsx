@@ -84,7 +84,7 @@ export default function TabItems() {
                         <Button
                             variant="destructive"
                             size="icon"
-                            className="p-0"
+                            className="p-0 cursor-pointer"
                             onClick={() => {
                                 setExtractedData({
                                     ...extractedData,
