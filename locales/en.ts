@@ -25,6 +25,7 @@ export default {
             button: "Add Item",
             validate: "Validate Items",
             error: "All items must have a name",
+            delete: "Delete Item",
         },
         split: {
             title: "Split the Bill",

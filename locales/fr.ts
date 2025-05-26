@@ -25,6 +25,7 @@ export default {
             button: "Ajouter un article",
             validate: "Valider les articles",
             error: "Tous les articles doivent avoir un nom",
+            delete: "Supprimer l'article",
         },
         split: {
             title: "Partager la facture",
