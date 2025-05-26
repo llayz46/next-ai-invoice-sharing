@@ -1,16 +1,19 @@
 'use client'
 
+import { extractInvoiceData } from "@/ai/flows/extract-invoice-data";
+import { useInvoice } from "@/context/InvoiceContext";
+import { FileMetadata } from "@/hooks/use-file-upload";
+import { useScopedI18n } from "@/locales/client";
 import { useState } from "react";
+import { toast } from "sonner";
 import { FormImageUpload } from "./form-image-upload";
 import PageHeading from "./page-heading";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import { FileMetadata } from "@/hooks/use-file-upload";
-import { extractInvoiceData } from "@/ai/flows/extract-invoice-data";
-import { toast } from "sonner";
-import { useInvoice } from "@/context/InvoiceContext";
 
-export default function TabScan() {    
+export default function TabScan() {
+    const scanTranslations = useScopedI18n("scan.scan");
+
     const {
         setExtractedData,
         setNavTab,
@@ -22,7 +25,7 @@ export default function TabScan() {
 
     const handleProcessImage = async () => {
         if (!selectedImageFile) {
-            toast.error("Please select an image first.");
+            toast.error(scanTranslations("formImageUpload.errorImage"));
             return;
         }
 
@@ -41,11 +44,13 @@ export default function TabScan() {
             });
 
             setExtractedData(result);
-            toast.success("Invoice data extracted.");
+            toast.success(scanTranslations("formImageUpload.success"));
 
             setNavTab("items");
         } catch (e) {
-            const errorMessage = e instanceof Error ? e.message : "Failed to extract data from invoice.";
+            const errorMessage = e instanceof Error && e.name === 'InvoiceExtractionError' 
+                ? scanTranslations("formImageUpload.errorExtract")
+                : scanTranslations("formImageUpload.errorExtract");
             toast.error(errorMessage);
             setExtractedData(null);
         } finally {
@@ -56,8 +61,8 @@ export default function TabScan() {
     return navTab === "scan" && (
         <>
             <PageHeading
-                title="Scan Receipt"
-                description="Take a photo or upload an image of your receipt."
+                title={scanTranslations("title")}
+                description={scanTranslations("description")}
                 navTab="scan"
             />
 
@@ -71,7 +76,7 @@ export default function TabScan() {
                 variant="studio"
                 className="font-sans cursor-pointer w-full mt-16 py-5"
             >
-                Scan Invoice
+                {scanTranslations("button")}
             </Button>
         </>
     );

@@ -7,8 +7,11 @@ import { buttonVariants, Button } from "./ui/button";
 import { toast } from "sonner";
 import { useInvoice } from "@/context/InvoiceContext";
 import { useInvoiceActions } from "@/hooks/use-invoice-actions";
+import { useScopedI18n } from "@/locales/client";
 
 export default function TabSummary() {
+    const scanTranslations = useScopedI18n("scan.summary");
+
     const {
         people,
         navTab
@@ -33,19 +36,17 @@ export default function TabSummary() {
             }
         }, 0);
 
-        const text = `Here's how we should split this bill:
-        ${billSummary}
-        Total: $${total}`;
+        const text = scanTranslations("text", { billSummary, total });
 
         navigator.clipboard.writeText(text);
-        toast.success("Copied to clipboard");
+        toast.success(scanTranslations("copied"));
     };
     
     return navTab === "summary" && (
         <>
             <PageHeading
-                title="Bill Summary"
-                description="Review how much each person owes for their items."
+                title={scanTranslations("title")}
+                description={scanTranslations("description")}
                 navTab="summary"
             />
 
@@ -67,11 +68,11 @@ export default function TabSummary() {
 
             <Button onClick={handleShare} variant="studio" className="w-full mt-12 py-5">
                 <Share size={16} />
-                Share
+                {scanTranslations("button")}
             </Button>
 
             <Button onClick={resetInvoice} variant="outline" className={cn(buttonVariants({ variant: "outline" }), "w-full mt-4")}>
-                Back to Scan
+                {scanTranslations("back")}
             </Button>
         </>
     );

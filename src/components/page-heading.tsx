@@ -1,4 +1,5 @@
 import { useInvoiceActions } from "@/hooks/use-invoice-actions";
+import { useI18n } from "@/locales/client";
 import { ArrowLeft } from "lucide-react";
 
 type Tab = "scan" | "items" | "split" | "summary"
@@ -12,7 +13,8 @@ const TAB_MAP: Record<Tab, Tab> = {
 
 export default function PageHeading({ title, description, navTab }: { title: string, description: string, navTab: Tab }) {
     const { handleBack } = useInvoiceActions();
-    
+    const t = useI18n();
+
     return (
         <div className="flex flex-col items-start gap-3 font-sans">
             <span 
@@ -20,7 +22,7 @@ export default function PageHeading({ title, description, navTab }: { title: str
                 onClick={() => handleBack(navTab, TAB_MAP[navTab])}
             >
                 <ArrowLeft size={16} />
-                Back
+                {t("back")}
             </span>
 
             <h1 className="text-2xl font-medium text-foreground">

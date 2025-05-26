@@ -9,8 +9,11 @@ import PageHeading from "./page-heading";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useScopedI18n } from "@/locales/client";
 
 export default function TabSplit() {
+    const scanTranslations = useScopedI18n("scan.split");
+    
     const {
         people,
         splitEqually,
@@ -31,7 +34,7 @@ export default function TabSplit() {
         );
         if (noItemsAssigned) {
             if (people.length === 0) {
-                toast.error("No people to split the bill between");
+                toast.error(scanTranslations("error.noPeople"));
                 return;
             }
             handleSplitEqually();
@@ -60,7 +63,7 @@ export default function TabSplit() {
         }
 
         if (!noItemsAssigned && !allItemsAssigned) {
-            toast.error("All items must be assigned to a person");
+            toast.error(scanTranslations("error.noItemsAssigned"));
         }
     };
 
@@ -78,21 +81,21 @@ export default function TabSplit() {
         const numberOfPeople = people.length;
 
         if (numberOfPeople === 0) {
-            toast.error("No people to split the bill between");
+            toast.error(scanTranslations("error.noPeople"));
             return;
         }
 
         const totalAmount = extractedData?.totalAmount;
 
         if (!totalAmount) {
-            toast.error("No total amount found");
+            toast.error(scanTranslations("error.noTotalAmount"));
             return;
         } else {
             people.forEach((person) => {
                 person.items = { price: totalAmount / numberOfPeople };
             });
 
-            toast.success("Bill split equally");
+            toast.success(scanTranslations("success"));
             setSplitEqually(true);
         }
     };
@@ -146,8 +149,8 @@ export default function TabSplit() {
     return navTab === "split" && (
         <>
             <PageHeading
-                title="Split the bill"
-                description="Split the bill between the people you're with."
+                title={scanTranslations("title")}
+                description={scanTranslations("description")}
                 navTab="split"
             />
 
@@ -197,14 +200,14 @@ export default function TabSplit() {
                         ]);
                     }}
                 >
-                    Add Person
+                    {scanTranslations("addPerson")}
                     <Plus size={12} />
                 </Button>
             </div>
 
             <div className="mt-8 flex flex-col gap-4">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-medium">Assign items to people</h2>
+                    <h2 className="text-lg font-medium">{scanTranslations("assignItems")}</h2>
 
                     <Button
                         variant="outline"
@@ -215,7 +218,7 @@ export default function TabSplit() {
                             "cursor-pointer transition-colors"
                         )}
                     >
-                        Split Equally
+                        {scanTranslations("splitEqually")}
                     </Button>
                 </div>
 
@@ -258,7 +261,7 @@ export default function TabSplit() {
                 variant="studio"
                 className="font-sans w-full mt-16 py-5"
             >
-                Split Bill
+                {scanTranslations("splitBill")}
             </Button>
         </>
     );

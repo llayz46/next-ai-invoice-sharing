@@ -2,10 +2,13 @@
 
 import { FileMetadata, useFileUpload } from "@/hooks/use-file-upload";
 import { cn } from "@/lib/utils";
+import { useScopedI18n } from "@/locales/client";
 import { AlertCircleIcon, ImageUpIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 
 export function FormImageUpload({ onImageUploaded, isLoading }: { onImageUploaded: (file: File | FileMetadata | null) => void, isLoading: boolean }) {
+    const scanTranslations = useScopedI18n("scan.scan.formImageUpload");
+
     const maxSizeMB = 5;
     const maxSize = maxSizeMB * 1024 * 1024;
 
@@ -81,10 +84,10 @@ export function FormImageUpload({ onImageUploaded, isLoading }: { onImageUploade
                                 <ImageUpIcon className="size-4 opacity-60" />
                             </div>
                             <p className="mb-1.5 text-sm font-medium">
-                                Drop your image here or click to browse
+                                {scanTranslations("title")}
                             </p>
                             <p className="text-muted-foreground text-xs">
-                                Max size: {maxSizeMB}MB
+                                {scanTranslations("maxSize", { maxSize: maxSizeMB })}
                             </p>
                         </div>
                     )}

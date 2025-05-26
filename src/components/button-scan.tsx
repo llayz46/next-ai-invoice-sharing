@@ -5,10 +5,12 @@ import { Camera } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { useInvoiceActions } from "@/hooks/use-invoice-actions";
+import { useScopedI18n } from "@/locales/client";
 
 export function ButtonScan() {
     const { resetInvoice } = useInvoiceActions();
-    
+    const homeTranslations = useScopedI18n("home");
+
     return (
         <Link
             href="/scan"
@@ -16,7 +18,7 @@ export function ButtonScan() {
             onClick={resetInvoice}
         >
             <Camera size={16} />
-            Scan Invoice
+            {homeTranslations("button")}
         </Link>
     );
 }

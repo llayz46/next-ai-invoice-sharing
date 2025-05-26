@@ -11,6 +11,13 @@
 import { ai } from "@/ai/genkit";
 import { z } from "genkit";
 
+class InvoiceExtractionError extends Error {
+    constructor() {
+        super();
+        this.name = 'InvoiceExtractionError';
+    }
+}
+
 const ExtractInvoiceDataInputSchema = z.object({
     invoiceImage: z
         .string()
@@ -68,7 +75,7 @@ const extractInvoiceDataFlow = ai.defineFlow(
         const { output } = await extractInvoiceDataPrompt(input);
 
         if(output?.items.length === 0) {
-            throw new Error("No items found in the invoice.");
+            throw new InvoiceExtractionError();
         }
 
         output?.items.forEach((item, index) => {

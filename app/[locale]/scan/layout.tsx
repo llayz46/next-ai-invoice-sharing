@@ -1,3 +1,4 @@
+import { getI18n } from "@/locales/server";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -5,13 +6,15 @@ export const metadata: Metadata = {
     description: "Split the bill between the people you're with.",
 }
 
-export default function ScanLayout({ children }: { children: React.ReactNode }) {
+export default async function ScanLayout({ children }: { children: React.ReactNode }) {
+    const t = await getI18n();
+
     return (
         <>
             {children}
             
             <footer className="mt-10 mb-5 text-center text-sm text-muted-foreground">
-                Powered by Gemini AI
+                {t("footer")}
             </footer>
         </>
     )

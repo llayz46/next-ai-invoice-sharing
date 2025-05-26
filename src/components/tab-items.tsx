@@ -6,8 +6,11 @@ import { toast } from "sonner";
 import PageHeading from "./page-heading";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useScopedI18n } from "@/locales/client";
 
 export default function TabItems() {
+    const scanTranslations = useScopedI18n("scan.items");
+    
     const {
         extractedData,
         setExtractedData,
@@ -21,7 +24,7 @@ export default function TabItems() {
         if (!extractedData?.items.some((item) => !item.name)) {
             setNavTab("split");
         } else {
-            toast.error("All items must have a name");
+            toast.error(scanTranslations("error"));
             return;
         }
     };
@@ -29,15 +32,15 @@ export default function TabItems() {
     return navTab === "items" && (
         <>
             <PageHeading
-                title="Receipt items"
-                description="Here are the items on your receipt."
+                title={scanTranslations("title")}
+                description={scanTranslations("description")}
                 navTab="items"
             />
 
             <div className="mt-8 flex flex-col gap-4">
                 <div className="flex justify-start items-center gap-2">
                     <h2 className="text-lg font-medium">{extractedData.restaurantName} :</h2>
-                    <p className="text-sm text-gray-500">Total: ${extractedData.totalAmount.toFixed(2)}</p>
+                    <p className="text-sm text-gray-500">{scanTranslations("total", { total: extractedData.totalAmount.toFixed(2) })}</p>
                 </div>
 
                 {extractedData.items.map((item, i) => (
@@ -104,7 +107,7 @@ export default function TabItems() {
                         });
                     }}
                 >
-                    Add Item
+                    {scanTranslations("button")}
                     <Plus size={12} />
                 </Button>
             </div>
@@ -115,7 +118,7 @@ export default function TabItems() {
                 variant="studio"
                 className="font-sans w-full mt-16 py-5"
             >
-                Validate Items
+                {scanTranslations("validate")}
             </Button>
         </>
     );
