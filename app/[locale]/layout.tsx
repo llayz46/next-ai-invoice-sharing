@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children, params }: Readonly<{ children: ReactNode; params: { locale: string } }>) {
-    const locale = await params.locale;
+    const { locale } = await params;
 
     return (
         <html lang="en" suppressHydrationWarning>
