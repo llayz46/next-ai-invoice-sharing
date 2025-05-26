@@ -1,20 +1,21 @@
 'use client'
 
-import { cn } from "@/lib/utils";
-import { Share } from "lucide-react";
-import PageHeading from "./page-heading";
-import { buttonVariants, Button } from "./ui/button";
-import { toast } from "sonner";
 import { useInvoice } from "@/context/InvoiceContext";
 import { useInvoiceActions } from "@/hooks/use-invoice-actions";
+import { cn } from "@/lib/utils";
 import { useScopedI18n } from "@/locales/client";
+import { Share } from "lucide-react";
+import { toast } from "sonner";
+import PageHeading from "./page-heading";
+import { Button, buttonVariants } from "./ui/button";
 
 export default function TabSummary() {
     const scanTranslations = useScopedI18n("scan.summary");
 
     const {
         people,
-        navTab
+        navTab,
+        saveToHistory
     } = useInvoice();
 
     const { resetInvoice } = useInvoiceActions();
@@ -40,6 +41,11 @@ export default function TabSummary() {
 
         navigator.clipboard.writeText(text);
         toast.success(scanTranslations("copied"));
+    };
+
+    const handleSave = () => {
+        saveToHistory();
+        toast.success(scanTranslations("saved"));
     };
     
     return navTab === "summary" && (
@@ -69,6 +75,10 @@ export default function TabSummary() {
             <Button onClick={handleShare} variant="studio" className="w-full mt-12 py-5">
                 <Share size={16} />
                 {scanTranslations("button")}
+            </Button>
+
+            <Button onClick={handleSave} variant="outline" className={cn(buttonVariants({ variant: "outline" }), "w-full mt-4")}>
+                {scanTranslations("save")}
             </Button>
 
             <Button onClick={resetInvoice} variant="outline" className={cn(buttonVariants({ variant: "outline" }), "w-full mt-4")}>

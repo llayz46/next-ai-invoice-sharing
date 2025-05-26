@@ -9,6 +9,7 @@ import { ReactNode } from "react";
 import { InvoiceProvider } from "@/context/InvoiceContext";
 import "./globals.css";
 import { I18nProvider } from "@/providers/i18n-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -42,7 +43,9 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
                                 <ThemeToggle />
                             </header>
 
-                            {children}
+                            <TooltipProvider>
+                                {children}
+                            </TooltipProvider>
                         </InvoiceProvider>
                     </ThemeProvider>
                 </I18nProvider>

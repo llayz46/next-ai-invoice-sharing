@@ -1,4 +1,3 @@
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { getI18n } from "@/locales/server";
 import { Metadata } from "next";
 
@@ -12,9 +11,7 @@ export default async function ScanLayout({ children }: { children: React.ReactNo
 
     return (
         <>
-            <TooltipProvider>
-                {children}
-            </TooltipProvider>
+            {children}
             
             <footer className="mt-10 mb-5 text-center text-sm text-muted-foreground">
                 {t("footer")}

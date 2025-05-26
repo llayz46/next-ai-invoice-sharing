@@ -1,5 +1,6 @@
 "use client";
 
+import { CachedInvoice, useInvoiceCache } from "@/hooks/use-invoice-cache";
 import { ExtractedData, Person, Tab } from "@/lib/types";
 import { createContext, ReactNode, useContext, useState } from "react";
 
@@ -12,6 +13,9 @@ interface InvoiceContextType {
     setSplitEqually: (split: boolean) => void;
     extractedData: ExtractedData | null;
     setExtractedData: (data: ExtractedData | null) => void;
+    history: CachedInvoice[];
+    saveToHistory: () => void;
+    deleteFromHistory: (id: string) => void;
 }
 
 const InvoiceContext = createContext<InvoiceContextType | undefined>(undefined);
@@ -21,6 +25,30 @@ export function InvoiceProvider({ children }: { children: ReactNode }) {
     const [people, setPeople] = useState<Person[]>([]);
     const [splitEqually, setSplitEqually] = useState(false);
     const [extractedData, setExtractedData] = useState<ExtractedData | null>(null);
+    const { cachedInvoices, saveInvoice, deleteInvoice } = useInvoiceCache();
+
+    const saveToHistory = () => {
+        if (!extractedData) return;
+        
+        const total = people.reduce((sum, person) => {
+            if (Array.isArray(person.items)) {
+                return sum + person.items.reduce((sum, item) => sum + item.price, 0);
+            } else {
+                return sum + person.items.price;
+            }
+        }, 0);
+
+        saveInvoice({
+            restaurantName: extractedData.restaurantName,
+            people,
+            total,
+            extractedData,
+        });
+    };
+
+    const deleteFromHistory = (id: string) => {
+        deleteInvoice(id);
+    };
 
     const value = {
         navTab,
@@ -31,6 +59,9 @@ export function InvoiceProvider({ children }: { children: ReactNode }) {
         setSplitEqually,
         extractedData,
         setExtractedData,
+        history: cachedInvoices,
+        saveToHistory,
+        deleteFromHistory,
     };
 
     return (

@@ -2,6 +2,8 @@ import { SquaresExclude } from "lucide-react";
 import { Metadata } from "next";
 import { ButtonScan } from "@/components/button-scan";
 import { getScopedI18n } from "@/locales/server";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 export const metadata: Metadata = {
     title: "Share Bills, Keep Friends",
@@ -25,6 +27,10 @@ export default async function Home() {
                 </p>
 
                 <ButtonScan />
+
+                <Link href="/history" className={`${buttonVariants({ variant: "outline" })} w-full mt-4`}>
+                    {homeTranslations("history")}
+                </Link>
             </section>
         </main>
     );

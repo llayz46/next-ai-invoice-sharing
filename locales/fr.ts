@@ -3,6 +3,7 @@ export default {
         title: "Une nouvelle façon de partager les factures",
         description: "Partagez les factures avec vos amis en quelques clics. Pas besoin de compte. Pas besoin de connexion. Pas besoin de messagerie. Juste un appareil photo.",
         button: "Scanner une facture",
+        history: "Historique",
     },
     back: "Retour",
     scan: {
@@ -48,13 +49,25 @@ export default {
             back: "Retour à la facture",
             copied: "Copié dans le presse-papiers",
             text: "Voici comment nous devons partager cette facture:\n{billSummary}\nTotal: {total} €",
-        }
+            saved: "Facture sauvegardée avec succès",
+            save: "Sauvegarder la facture"
+        },
     },
     theme: {
         srOnly: "Basculer le thème",
         light: "Clair",
         dark: "Sombre",
         system: "Système",
+    },
+    history: {
+        title: "Historique",
+        back: "Retour à la page d'accueil",
+        description: "Voici vos factures sauvegardées.",
+        empty: "Aucune facture sauvegardée",
+        total: "Total: {total} €",
+        splitBetween: "Partager entre {people} personnes",
+        amount: "{amount} €",
+        delete: "Supprimer de l'historique",
     },
     footer: "Propulsé par Gemini AI"
 } as const;

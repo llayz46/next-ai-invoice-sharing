@@ -3,6 +3,7 @@ export default {
         title: "Share Bills, Keep Friends",
         description: "Split bills effortlessly with friends. Just snap, tap, and share - it's that simple. No accounts needed.",
         button: "Scan Invoice",
+        history: "History",
     },
     back: "Back",
     scan: {
@@ -48,13 +49,25 @@ export default {
             back: "Back to Scan",
             copied: "Copied to clipboard",
             text: "Here's how we should split this bill:\n{billSummary}\nTotal: ${total}",
-        }
+            saved: "Bill saved successfully",
+            save: "Save Bill",
+        },
     },
     theme: {
         srOnly: "Toggle theme",
         light: "Light",
         dark: "Dark",
         system: "System",
+    },
+    history: {
+        title: "History",
+        back: "Back to Home",
+        description: "Here are your saved bills.",
+        empty: "No saved bills",
+        total: "Total: ${total}",
+        splitBetween: "Split between {people} people",
+        amount: "${amount}",
+        delete: "Delete from history",
     },
     footer: "Powered by Gemini AI"
 } as const;
