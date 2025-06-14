@@ -25,6 +25,7 @@ export function InvoiceProvider({ children }: { children: ReactNode }) {
     const [people, setPeople] = useState<Person[]>([]);
     const [splitEqually, setSplitEqually] = useState(false);
     const [extractedData, setExtractedData] = useState<ExtractedData | null>(null);
+    
     const { cachedInvoices, saveInvoice, deleteInvoice } = useInvoiceCache();
 
     const saveToHistory = () => {

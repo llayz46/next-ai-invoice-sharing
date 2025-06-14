@@ -31,7 +31,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
 
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen flex flex-col`}>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col gap-8`}>
                 <I18nProvider locale={locale}>
                     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
                         <InvoiceProvider>

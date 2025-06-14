@@ -13,7 +13,7 @@ export default async function ScanLayout({ children }: { children: React.ReactNo
         <>
             {children}
             
-            <footer className="mt-10 mb-5 text-center text-sm text-muted-foreground">
+            <footer className="mt-auto mb-10 text-center text-sm text-muted-foreground">
                 {t("footer")}
             </footer>
         </>

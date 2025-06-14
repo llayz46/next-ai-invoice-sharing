@@ -25,7 +25,10 @@ export default {
             total: "Total: ${total}",
             button: "Add Item",
             validate: "Validate Items",
-            error: "All items must have a name",
+            error: {
+                name: "All items must have a name",
+                empty: "Menu need to be empty before delete"
+            },
             delete: "Delete Item",
         },
         split: {
@@ -35,6 +38,7 @@ export default {
             assignItems: "Assign items to people",
             splitEqually: "Split Equally",
             splitBill: "Split Bill",
+            devise: "${price}",
             error: {
                 noPeople: "No people to split the bill between",
                 noItemsAssigned: "All items must be assigned to a person",
@@ -46,7 +50,7 @@ export default {
             title: "Bill Summary",
             description: "Review how much each person owes for their items.",
             button: "Share",
-            back: "Back to Scan",
+            back: "Back to home page",
             copied: "Copied to clipboard",
             text: "Here's how we should split this bill:\n{billSummary}\nTotal: ${total}",
             saved: "Bill saved successfully",

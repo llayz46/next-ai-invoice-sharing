@@ -25,7 +25,10 @@ export default {
             total: "Total: {total} €",
             button: "Ajouter un article",
             validate: "Valider les articles",
-            error: "Tous les articles doivent avoir un nom",
+            error: {
+                name: "Tous les articles doivent avoir un nom",
+                empty: "Le menu doit être vide avant d'être supprimé"
+            },
             delete: "Supprimer l'article",
         },
         split: {
@@ -35,6 +38,7 @@ export default {
             assignItems: "Assigner les articles à des personnes",
             splitEqually: "Partager équitablement",
             splitBill: "Partager la facture",
+            devise: "{price} €",
             error: {
                 noPeople: "Aucune personne pour partager la facture",
                 noItemsAssigned: "Tous les articles doivent être assignés à une personne",
@@ -46,7 +50,7 @@ export default {
             title: "Résumé de la facture",
             description: "Revoyez combien chacune des personnes doit payer pour leurs articles.",
             button: "Partager",
-            back: "Retour à la facture",
+            back: "Retour à la page d'accueil",
             copied: "Copié dans le presse-papiers",
             text: "Voici comment nous devons partager cette facture:\n{billSummary}\nTotal: {total} €",
             saved: "Facture sauvegardée avec succès",

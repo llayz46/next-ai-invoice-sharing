@@ -49,15 +49,27 @@ export default function TabSplit() {
             return;
         }
 
-        const allItemsAssigned = extractedData?.items.every((item) =>
-            people.some((person) => {
-                if (Array.isArray(person.items)) {
-                    return person.items.some((i) => i.id === item.id);
-                }
+        const allItemsAssigned = 
+            extractedData.individualItems.every((item) =>
+                people.some((person) => {
+                    if (Array.isArray(person.items)) {
+                        return person.items.some((i) => i.id === item.id);
+                    }
 
-                return person.items.id === item.id;
-            })
-        );
+                    return person.items.id === item.id;
+                })
+            ) 
+            && extractedData.menus.map(mnu => (
+                mnu.items.every((item) => 
+                    people.some((person) => {
+                        if (Array.isArray(person.items)) {
+                            return person.items.some((i) => String(i.id) === String(item.id));
+                        }
+    
+                        return String(person.items.id) === String(item.id);
+                    })
+            )));
+
         if (allItemsAssigned) {
             setNavTab("summary");
         }
@@ -101,7 +113,7 @@ export default function TabSplit() {
     };
 
     const handleAssignItemToPerson = (
-        item: { id: number; name: string; price: number },
+        item: { id: number | string; name: string; price: number },
         person: { id: number; name: string; items: Item[] | Item }
     ) => {
         const currentAssignments = people.reduce((count: number, p: Person) => {
@@ -214,7 +226,7 @@ export default function TabSplit() {
                         size="sm"
                         onClick={handleSplitEqually}
                         className={cn(
-                            splitEqually && "bg-studio-600 text-white border-transparent",
+                            splitEqually && "!bg-studio-600 text-white border-transparent",
                             "cursor-pointer transition-colors"
                         )}
                     >
@@ -222,14 +234,52 @@ export default function TabSplit() {
                     </Button>
                 </div>
 
-                {extractedData.items.map((item) => (
+                {extractedData.menus.map((menu) => (
+                    <div
+                        key={menu.id}
+                        className="flex flex-col gap-2 rounded-md text-sm font-medium shrink-0 outline-none border bg-background shadow-xs dark:bg-input/30 dark:border-input px-4 py-2 w-full"
+                    >
+                        <p>{menu.name}</p>
+
+                        {menu.items.map((item, i) => (
+                            <div key={i} className="flex flex-col gap-2 rounded-md text-sm font-medium outline-none border bg-background shadow-xs dark:bg-input/30 dark:border-input hover:bg-input/50 dark:hover:bg-input/50 px-4 py-2 w-full">
+                                <div className="flex justify-between gap-2">
+                                    <p>{item.name}</p>
+                                    <p>{scanTranslations("devise", { price: item.price.toFixed(2) })}</p>
+                                </div>
+
+                                {people.length > 0 && (
+                                    <div className="flex flex-wrap gap-1">
+                                        {people.map((person) => (
+                                            <Badge
+                                                key={person.id}
+                                                variant="outline"
+                                                onClick={() => !splitEqually && handleAssignItemToPerson(item, person)}
+                                                className={cn(
+                                                    Array.isArray(person.items) &&
+                                                        person.items.some((i) => String(i.id) === String(item.id)) &&
+                                                        "bg-studio-600 text-white border-transparent",
+                                                    splitEqually ? "opacity-50 cursor-default" : "cursor-pointer"
+                                                )}
+                                            >
+                                                {person.name}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                ))}
+
+                {extractedData.individualItems.map((item) => (
                     <div
                         key={item.id}
-                        className="flex flex-col gap-2 rounded-md text-sm font-medium shrink-0 outline-none border bg-background shadow-xs dark:bg-input/30 dark:border-input dark:hover:bg-input/50 px-4 py-2 w-full"
+                        className="flex flex-col gap-2 rounded-md text-sm font-medium shrink-0 outline-none border bg-background shadow-xs dark:bg-input/30 dark:border-input hover:bg-input/50 dark:hover:bg-input/50 px-4 py-2 w-full"
                     >
                         <div className="flex items-center justify-between w-full">
                             <p>{item.name}</p>
-                            <p>${item.price}</p>
+                            <p>{scanTranslations("devise", { price: item.price.toFixed(2) })}</p>
                         </div>
 
                         {people.length > 0 && (
